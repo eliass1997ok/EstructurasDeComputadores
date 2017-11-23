@@ -1,5 +1,5 @@
 .data
-list: .word  1,2,3,100,5  #Se define el arreglo de números.
+list: .word  2,1,3,100,5  #Se define el arreglo de números.
 
 str1: .asciiz "“Ingrese el largo del arreglo: "  #Se define el string que se mostrará por pantalla.
 str2: .asciiz "El número menor es: " #Se define el string que se mostrará por pantalla.
@@ -24,12 +24,13 @@ li $t0, 1 #Se inicia un contador en 1
 lw $t1, 0($a0) #Se establece el primer elemento del arreglo como el máximo. Se almacena en $t1.
 lw $t5, 0($a0) #Se establece el primer elemento del arreglo como el mínimo. Se almacena en $t5.
 
-A:      lw $t3, 4($a0) #Se almacena el valor contenido en el arreglo[contador]
-	blt $t3, $t1, B #Se compara el elemento mayor actual, con el elemento del arreglo
+A: lw $t3, 4($a0) #Se almacena el valor contenido en el arreglo[contador]
+	blt $t3, $t1, C #Se compara el elemento mayor actual, con el elemento del arreglo
 	addi $t1, $t3, 0 #En caso que el elemento del arreglo[contador] sea mayor o igual al actual mayor, el elemento mayor se actualiza.
-	bgt $t3, $t5, B #Se compara el elemento menor actual, con el elemento del arreglo
-	addi $t5, $t3, 0 #En caso que el elemento del arreglo[contador] sea menor o igual al actual menor, el elemento menor se actualiza.
-	
+
+C:	bgt $t3, $t5, B #Se compara el elemento menor actual, con el elemento del arreglo
+	addi $t5, $t3, 0 #En caso que el elemento del arreglo[contador] sea menor o igual al actual menor, el elemento menor se actualiza.	
+
 B: addi $t0, $t0, 1 #El contador aumenta en 1
    addi $a0, $a0, 4 #Se carga la siguiente posición del arreglo
    blt $t0, $a1, A #Se determina si aún queda arreglo por recorrer
